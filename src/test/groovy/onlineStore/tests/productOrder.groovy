@@ -3,6 +3,7 @@ package onlineStore.tests
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.SelenideElement
+import onlineStore.MainPage
 import org.junit.Test
 
 import static com.codeborne.selenide.Selenide.$
@@ -13,7 +14,7 @@ class productOrder {
     void testProductOrder() {
         Selenide.open("http://litecart.stqa.ru/en/")
 
-        getProduct().shouldBe(Condition.visible).click()
+        MainPage.getProduct().shouldBe(Condition.visible).click()
 
         getProductPrice().shouldBe(Condition.visible)
         def currentPrice = getProductPrice().text
@@ -91,9 +92,6 @@ class productOrder {
         $("[itemprop='price']")
     }
 
-    SelenideElement getProduct() {
-        $(".product")
-    }
 
     static fillAddressForm(String fieldname, fieldValue) {
         def billingAddress = $(".billing-address")
