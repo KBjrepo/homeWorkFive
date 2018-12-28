@@ -1,7 +1,8 @@
 package onlineStore.tests
 
-
+import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
+import com.codeborne.selenide.SelenideElement
 import org.junit.Test
 
 import static com.codeborne.selenide.Selenide.$
@@ -9,52 +10,95 @@ import static com.codeborne.selenide.Selenide.$x
 
 class productOrder {
     @Test
-    public void testProductOrder() {
+    void testProductOrder() {
         Selenide.open("http://litecart.stqa.ru/en/")
 
+        getProduct().shouldBe(Condition.visible).click()
 
-        def product = $(".product")
-        product.shouldBe(com.codeborne.selenide.Condition.visible)
-        product.click()
+        getProductPrice().shouldBe(Condition.visible)
+        def currentPrice = getProductPrice().text
 
-        $("[itemprop='price']").shouldBe(com.codeborne.selenide.Condition.visible)
-        def currentPrice = $("[itemprop='price']").text
-
-        if ($x("//select[@name = 'options[Size]']").exists()) {
-            def productSize = $x("//select[@name = 'options[Size]']")
+        if (getProductSize().exists()) {
             productSize.selectOptionContainingText("Small")
         }
 
-        def addToCartButton = $("[name='buy_now_form'] button")
+        getAddToCartButton()
         addToCartButton.click()
 
-        $("#cart .quantity").shouldHave(com.codeborne.selenide.Condition.exactText("1"))
+        getProductQuantity().shouldHave(Condition.exactText("1"))
 
-        def cart = $("#cart")
-        cart.click()
+        getCartButton()
+        cartButton.click()
 
-        def cartPrice = $("[name='cart_form'] div p:nth-of-type(2)")
-        cartPrice.shouldBe(com.codeborne.selenide.Condition.visible)
-        assert currentPrice == cartPrice.text
+        getProductPriceInCart().shouldBe(Condition.visible)
+        def cartPrice = productPriceInCart.text
+        assert currentPrice == cartPrice
 
         fillAddressForm("firstname", "1")
         fillAddressForm("lastname", "2")
         fillAddressForm("address1", "4")
         fillAddressForm("postcode", "420066")
         fillAddressForm("city", "Midnight")
-        fillAddressForm("phone", "88005556565")
+        fillAddressForm("phone", "+78005556565")
+        fillAddressForm("email", "xxx@xx.ru")
 
-        def confirmButton = $x("//button[@name='confirm_order']")
-        confirmButton.shouldBe(com.codeborne.selenide.Condition.visible)
-        confirmButton.click()
+        getSaveChangeButton().shouldNotHave(Condition.disabled).click()
 
-        def successMessage = $("#box-order-success")
-        successMessage.shouldBe(com.codeborne.selenide.Condition.visible)
+        getCommentsField().value = "Вырази ложную мысль ясно, и она сама себя опровергнет"
+
+        getConfirmOrderButton().shouldNotHave(Condition.disabled).scrollTo().click()
+
+        getSuccessMessage().shouldBe(Condition.visible)
+    }
+
+    public SelenideElement getSuccessMessage() {
+        $("#box-order-success")
+    }
+
+    public SelenideElement getConfirmOrderButton() {
+        $x("//button[@name=\"confirm_order\"]")
+    }
+
+    public SelenideElement getCommentsField() {
+        $("[name='comments']")
+    }
+
+    public SelenideElement getSaveChangeButton() {
+        $(".billing-address button")
+    }
+
+    SelenideElement getProductPriceInCart() {
+        return $x("//div/p[last()-2]")
+    }
+
+    public SelenideElement getCartButton() {
+        $("#cart")
+    }
+
+    public SelenideElement getProductQuantity() {
+        $("#cart .quantity")
+    }
+
+    public SelenideElement getAddToCartButton() {
+        $("[name='buy_now_form'] button")
+    }
+
+    public SelenideElement getProductSize() {
+        $x("//select[@name = 'options[Size]']")
+    }
+
+    SelenideElement getProductPrice() {
+        $("[itemprop='price']")
+    }
+
+    SelenideElement getProduct() {
+        $(".product")
     }
 
     static fillAddressForm(String fieldname, fieldValue) {
         def billingAddress = $(".billing-address")
         def addressField = billingAddress.$x(".//input[@name = '$fieldname']")
         addressField.value = fieldValue
+
     }
 }
