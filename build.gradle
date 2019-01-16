@@ -11,10 +11,26 @@ repositories {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.11'
-    testCompile group: 'junit', name: 'junit', version: '4.12'
     compile 'com.codeborne:selenide:5.0.1'
     // https://mvnrepository.com/artifact/org.awaitility/awaitility
     compile group: 'org.awaitility', name: 'awaitility', version: '3.1.5'
-    // https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4
-    compile group: 'io.qameta.allure', name: 'allure-junit4', version: '2.7.0'
+    // https://mvnrepository.com/artifact/org.awaitility/awaitility
+    compile group: 'org.awaitility', name: 'awaitility', version: '3.1.2'
+
+    // https://mvnrepository.com/artifact/org.testng/testng
+    compile group: 'org.testng', name: 'testng', version: '6.14.3'
+    // https://mvnrepository.com/artifact/io.qameta.allure/allure-testng
+    compile group: 'io.qameta.allure', name: 'allure-testng', version: '2.7.0'
+}
+
+test {
+    useTestNG()
+    ignoreFailures = true
+}
+
+task runSelectedTests(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+    ignoreFailures = true
 }
