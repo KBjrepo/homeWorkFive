@@ -1,10 +1,10 @@
-package onlineStore.steps
+package lesson5.steps
 
 import com.codeborne.selenide.Condition
 import io.qameta.allure.Step
-import onlineStore.pages.CheckoutPage
-import onlineStore.pages.MainPage
-import onlineStore.pages.ProductPage
+import lesson5.pages.CheckoutPage
+import lesson5.pages.MainPage
+import lesson5.pages.ProductPage
 
 class AddToCartSteps {
     @Step

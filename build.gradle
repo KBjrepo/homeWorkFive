@@ -21,11 +21,17 @@ dependencies {
     compile group: 'org.testng', name: 'testng', version: '6.14.3'
     // https://mvnrepository.com/artifact/io.qameta.allure/allure-testng
     compile group: 'io.qameta.allure', name: 'allure-testng', version: '2.7.0'
-}
 
-test {
-    useTestNG()
-    ignoreFailures = true
+    //Логирование
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    // https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.25'
+    // https://mvnrepository.com/artifact/org.slf4j/jul-to-slf4j
+    compile group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.25'
+
 }
 
 task runSelectedTests(type: Test) {

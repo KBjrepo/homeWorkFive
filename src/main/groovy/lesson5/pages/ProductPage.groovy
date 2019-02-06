@@ -1,4 +1,4 @@
-package onlineStore.pages
+package lesson5.pages
 
 import com.codeborne.selenide.SelenideElement
 

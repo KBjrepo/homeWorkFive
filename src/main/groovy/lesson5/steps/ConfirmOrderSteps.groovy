@@ -1,9 +1,9 @@
-package onlineStore.steps
+package lesson5.steps
 
 import com.codeborne.selenide.Condition
 import io.qameta.allure.Step
-import onlineStore.helpers.WebDriverHelper
-import onlineStore.pages.CheckoutPage
+import lesson5.helpers.WebDriverHelper
+import lesson5.pages.CheckoutPage
 
 class ConfirmOrderSteps {
     @Step

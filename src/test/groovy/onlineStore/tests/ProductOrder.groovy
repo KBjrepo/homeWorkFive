@@ -2,10 +2,10 @@ package onlineStore.tests
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide
-import onlineStore.elements.AddressForm
-import onlineStore.pages.CheckoutPage
-import onlineStore.steps.AddToCartSteps
-import onlineStore.steps.ConfirmOrderSteps
+import lesson5.elements.AddressForm
+import lesson5.pages.CheckoutPage
+import lesson5.steps.AddToCartSteps
+import lesson5.steps.ConfirmOrderSteps
 import org.testng.annotations.Test
 
 class ProductOrder {

@@ -1,4 +1,4 @@
-package onlineStore.elements
+package lesson5.elements
 
 
 import static com.codeborne.selenide.Selenide.$
